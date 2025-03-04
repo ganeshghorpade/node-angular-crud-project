@@ -1,0 +1,68 @@
+nav{
+    background-color: black;
+    padding: 15px;
+    width: auto;
+
+}
+a{
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+}
+
+li{
+    border: 2px solid white;
+    width: auto;
+    padding: 5px;
+    border-radius: 20px;
+}
+.heading{
+    text-align: center;
+    margin-top: 20%;
+    font-size: 50px;
+}
+
+/* add prdocut */
+
+
+.main-container {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    margin-top: -70px;
+    width: 100%;
+}
+.form-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+}
+label {
+    display: block;
+    margin-top: 10px;
+    text-align: left;
+}
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.add-btn{
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 15px;
+}
+button:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+}
