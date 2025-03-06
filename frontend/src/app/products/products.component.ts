@@ -1,24 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import axios from 'axios';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-products',
-  standalone: false,
   templateUrl: './products.component.html',
-  styleUrl: './products.component.css'
+  styleUrl: './products.component.css',
+  imports: [CommonModule]
+
 })
 export class ProductsComponent implements OnInit {
   products: any = [];
+
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.loadProducts();
   }
 
   loadProducts() {
-    axios.get("http://localhost:5000/api/products")
-      .then(res => {
-        this.products = res.data;
-      })
-      .catch(error => console.error("Error loading products", error));
+    this.http.get<any[]>("http://localhost:5000/api/products")
+      .subscribe({
+        next: (response) => {
+          this.products = response;
+        },
+        error: (error) => {
+          console.error("Error loading products", error);
+        }
+      });
+
   }
 }

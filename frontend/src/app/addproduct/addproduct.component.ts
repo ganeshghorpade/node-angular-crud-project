@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms'; 
 
 @Component({
-  selector: 'app-addproduct',
+  selector: 'app-addproduct', 
   standalone: true, 
   templateUrl: './addproduct.component.html',
   styleUrls: ['./addproduct.component.css'],
-  imports: [CommonModule, ReactiveFormsModule] 
+  imports: [CommonModule, ReactiveFormsModule], 
 })
 export class AddproductComponent {
   productForm: FormGroup;
@@ -18,25 +18,32 @@ export class AddproductComponent {
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
-      category: ['', Validators.required]
+      category: ['', Validators.required]  // Ensure category holds the category ID
     });
 
-    this.fetchCategories(); 
+    this.fetchCategories();
   }
 
   fetchCategories() {
-    this.http.get<any[]>('http://localhost:5000/api/categories') 
-      .subscribe(response => {
-        this.categories = response; 
-      }, error => {
-        console.error('Error fetching categories:', error);
+    this.http.get<any[]>('http://localhost:5000/api/categories')
+      .subscribe({
+        next: (response) => {
+          this.categories = response;
+        },
+        error: (error) => {
+          console.error('Error fetching categories:', error);
+        }
       });
   }
 
-
   onSubmit() {
     if (this.productForm.valid) {
-      this.http.post('http://localhost:5000/api/products', this.productForm.value)
+      const formData = {
+        name: this.productForm.value.name,
+        category: Number(this.productForm.value.category) // Convert category ID to number
+      };
+
+      this.http.post('http://localhost:5000/api/products', formData)
         .subscribe({
           next: (response) => {
             console.log('Product added successfully:', response);
