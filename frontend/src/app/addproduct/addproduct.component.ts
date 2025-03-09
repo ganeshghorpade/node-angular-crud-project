@@ -12,13 +12,13 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [CommonModule, ReactiveFormsModule], 
 })
 export class AddproductComponent {
-  productForm: FormGroup;
+  productForm: FormGroup; 
   categories: any[] = []; 
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
-      category: ['', Validators.required]  // Ensure category holds the category ID
+      category: ['', Validators.required]  
     });
 
     this.fetchCategories();
@@ -40,7 +40,7 @@ export class AddproductComponent {
     if (this.productForm.valid) {
       const formData = {
         name: this.productForm.value.name,
-        category: Number(this.productForm.value.category) // Convert category ID to number
+        category: Number(this.productForm.value.category) 
       };
 
       this.http.post('http://localhost:5000/api/products', formData)
